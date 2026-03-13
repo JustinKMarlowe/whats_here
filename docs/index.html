@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="Discover open source geodata available at your current location — datums, imagery, coordinate systems, and feature layers.">
+  <meta name="theme-color" content="#0f1923">
+  <title>What's Here</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+</head>
+<body>
+
+  <!-- ════════ LANDING SCREEN ════════ -->
+  <div id="screen-landing" class="screen active">
+    <div class="contour-bg" aria-hidden="true"></div>
+    <div class="landing-content">
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="54" stroke="var(--amber)" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.4"/>
+          <circle cx="60" cy="60" r="38" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 5" opacity="0.25"/>
+          <circle cx="60" cy="60" r="22" stroke="var(--amber)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.15"/>
+          <line x1="60" y1="6" x2="60" y2="114" stroke="var(--amber)" stroke-width="0.5" opacity="0.2"/>
+          <line x1="6" y1="60" x2="114" y2="60" stroke="var(--amber)" stroke-width="0.5" opacity="0.2"/>
+          <circle cx="60" cy="60" r="4" fill="var(--amber)"/>
+        </svg>
+      </div>
+      <h1 class="site-title">What's Here</h1>
+      <p class="site-subtitle">Discover open-source geodata at your current location</p>
+      <button id="btn-whats-here" class="btn-primary" aria-label="Find geodata at my location">
+        <span class="btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="2" x2="12" y2="6"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="6" y2="12"/>
+            <line x1="18" y1="12" x2="22" y2="12"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </span>
+        <span class="btn-label">What's Here</span>
+      </button>
+      <p class="fine-print">Uses your device location · All data is open source</p>
+    </div>
+    <footer class="landing-footer">
+      <a href="https://github.com/JustinKMarlowe/whats_here" target="_blank" rel="noopener" class="github-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>View on GitHub</span>
+      </a>
+    </footer>
+  </div>
+
+  <!-- ════════ LOADING SCREEN ════════ -->
+  <div id="screen-loading" class="screen">
+    <div class="contour-bg" aria-hidden="true"></div>
+    <div class="loading-content">
+      <div class="location-pulse" aria-hidden="true">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delay-1"></div>
+        <div class="pulse-ring delay-2"></div>
+        <div class="pulse-dot"></div>
+      </div>
+      <p class="loading-status" id="loading-status">Acquiring location…</p>
+      <div class="loading-bar-track">
+        <div class="loading-bar-fill" id="loading-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ RESULTS SCREEN ════════ -->
+  <div id="screen-results" class="screen">
+    <header class="results-header">
+      <button id="btn-back" class="btn-back" aria-label="Go back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+      </button>
+      <div class="results-header-text">
+        <h2 class="results-title">What's Here</h2>
+        <p class="results-coords" id="results-coords"></p>
+      </div>
+      <button id="btn-refresh" class="btn-refresh" aria-label="Refresh data">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="results-location-banner" id="location-banner">
+      <span class="banner-icon">📍</span>
+      <span class="banner-text" id="location-name">Loading…</span>
+    </div>
+
+    <main class="results-body" id="results-body">
+      <!-- Sections are injected by JS -->
+    </main>
+  </div>
+
+  <!-- ════════ ERROR OVERLAY ════════ -->
+  <div id="error-overlay" class="error-overlay hidden">
+    <div class="error-card">
+      <div class="error-icon">⚠️</div>
+      <h3 class="error-title" id="error-title">Location Unavailable</h3>
+      <p class="error-message" id="error-message">Please enable location services and try again.</p>
+      <button id="btn-error-dismiss" class="btn-primary btn-small">Try Again</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
